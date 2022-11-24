@@ -1,0 +1,34 @@
+@use '../Cartwidget/Cartwidget.scss';
+@use '../Navbarinput/Navbarinput.scss';
+
+.navbar {
+    background-color: #FFF159;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 90px;
+    div {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.navbar__menu {
+    transform: translateY(-14px);
+    a {
+        color: rgb(93, 93, 93);
+        margin: 0 1rem;
+        text-decoration: none;
+    }
+    a:hover {
+        color: #111;
+    }
+}
+
+.navbar__logo {
+    a {
+        img {
+            width: 140px;
+        }
+    }
+}

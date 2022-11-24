@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  background-color: #EBEBEB;
+  color: black;
+}
+
+.App-header {
+  color: #000000;
+  background-color: #f2e669;
+}
