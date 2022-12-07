@@ -3,23 +3,56 @@
     align-items: center;
     margin: 0 1rem;
     input {
-        width: 500px;
+        width: 600px;
         height: 30px;
-        padding: 0 1rem;
-        border-radius: 5px 0 0 5px;
+        padding: 0 .2rem;
         outline: none;
         border: none;
+        border-bottom: 1px solid rgb(89, 89, 89);
+        font-size: 1.05rem;
+        font-weight: 100;
     }   
 }
 
 .navinput__buscar {
     cursor: pointer;
     border: none;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     padding: 4.5px 10px;
     margin: 0 1px;
-    border-radius: 0 5px 5px 0;
     img {
         width: 18px;
     }
 }
+
+@media (max-width: 800px) {
+    .navbar__input {
+        input {
+            width: 400px;
+        }
+    }
+}
+
+@media (max-width: 550px) {
+    .navbar__input {
+        input {
+            width: 300px;
+        }
+    }
+}
+
+@media (max-width: 450px) {
+    .navbar__input {
+        input {
+            width: 200px;
+        }
+    }
+}
+
+@media (max-width: 320px) {
+    .navbar__input {
+        input {
+            width: 150px;
+        }
+    }
+} 
