@@ -1,16 +1,11 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import Proptypes from 'prop-types'
-import { Link } from "react-router-dom";
-import { productoslista } from "../../mocks";
-
 import Item from "../Item/Item";
 
-const ItemDetailContainer = ({onAdd}) => { 
+const ItemDetailContainer = () => { 
 
     return (
         <div className="item__container">
-                <Item productoslista={productoslista} />
+                <Item/>
         </div>
     )
 }

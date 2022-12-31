@@ -1,16 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { initializeApp } from "firebase/app";
+
 import './index.scss';
 
-import App from './App';
 import Initial from './pages/Initial';
 
 import reportWebVitals from './reportWebVitals';
 
+const firebaseConfig = {
+  apiKey: "AIzaSyDJXuQB70tWF-zS_sJh9_qF3mA466_vyFQ",
+  authDomain: "storeog-coderhouse.firebaseapp.com",
+  projectId: "storeog-coderhouse",
+  storageBucket: "storeog-coderhouse.appspot.com",
+  messagingSenderId: "378136336685",
+  appId: "1:378136336685:web:b2040638898c53eaa5dba4",
+  measurementId: "G-QJ0SKV1R1S"
+};
+
+initializeApp(firebaseConfig);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Initial />
+      <Initial />
   </React.StrictMode>
 );
 

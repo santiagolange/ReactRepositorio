@@ -20,21 +20,29 @@
     text-decoration: none;
     img {
         width: 350px;
+        box-shadow: 0px 0px 15px -10px #111;
     }
 }
 
 .itemlist__detalles {
     padding: .2rem .6rem;
-    div {
-        display: flex;
-        justify-content: space-between;
+    text-align: center;
+    p {
+        margin: .2rem 0;
     }
 }
 
 .itemlist__items {
     font-size: 1rem;
     color: #2c2c2c;
-    font-weight: 700;
+    font-weight: 600;
+}
+
+.itemlist__itemsPrecio {
+    color: #636363;
+    font-weight: 400;
+    font-size: 1.1rem;
+    margin: .2rem 0;
 }
 
 @media (max-width: 1100px) {

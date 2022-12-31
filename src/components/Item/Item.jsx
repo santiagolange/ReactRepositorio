@@ -1,47 +1,40 @@
+import Proptypes from 'prop-types'
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Proptypes from 'prop-types'
+import { doc, getDoc, getFirestore,} from 'firebase/firestore'
+import { useCartContext } from "../../context/CartContext";
 import Itemcount from "../Itemcount";
 
-const Item = ({productoslista}) => {
 
+const Item = () => {
+
+    const {addProduct} = useCartContext();
     const [data, setData] = useState([]);
+
+    const onAdd = (quantity) => {
+        addProduct(data,quantity);
+    }
 
     const {itemid} = useParams();
 
     useEffect(() => {
-        const getData = new Promise(resolve => {
-            setTimeout(() => {
-                resolve(productoslista);
-            }, 1000)
-        });
-        if(itemid) {
-            getData.then(res => setData(res.filter(productoslista => productoslista.itemid === itemid)));
-        } else {
-            getData.then(res => setData(res));
-        } 
-    }, [itemid])
-  
-    const onAdd = (count) => {
-        console.log(`La compra de ${count} fue exitosa`);
-    }
+        const db = getFirestore();
+        const dbDoc = doc(db, 'item', itemid)
+        getDoc(dbDoc).then(res => setData({id: res.id, ...res.data() }));
+        }, [itemid])
 
     return (
         <div className="detail__container">
-                { data && data.map((producto, index) =>{
-                    const newKey = `${producto}-${index}`
-                    return (
-                        <div key={newKey} className="detail__itemcontainer">
-                            <img src={producto.img} alt="" />
-                            <div className='detail__detalles'>
-                                <p className="detail__items">{producto.name}</p>
-                                <p className="detail__items">{producto.precio}</p>
-                                <Itemcount stock = {16} initial = {1} onAdd={onAdd}/>
-                            </div>
-                        </div>
-                    )  
-                })
-                }     
+            <div className="detail__itemcontainer">
+                <img src={data.img} alt="" />
+                <div className='detail__detalles'>
+                    <p className="detail__items">{data.name}</p>
+                    <p className="detail__itemPrecio">${data.precio}</p>
+                    <Itemcount stock = {data.stock} initial = {1} onAdd={onAdd}/>
+                    <p className='detail__itemsDescDos'>Descripción:</p>
+                    <p className="detail__itemsDesc">{data.desc}.</p>
+                </div>
+            </div> 
         </div>
     )
 }

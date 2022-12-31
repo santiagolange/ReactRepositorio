@@ -1,35 +1,26 @@
 import Proptypes from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import {Link, link} from 'react-router-dom';
-import { productoslista } from '../../mocks';
-
-import Itemcount from '../Itemcount'
-
-// <Itemcount stock = {16} initial = {1} onAdd={onAdd}/>
+import {Link} from 'react-router-dom';
+import {collection, getDocs, getFirestore, query, where} from 'firebase/firestore';
 
 const Itemlistcontainer = () => { 
 
-    const [data, setData] = useState([]);
+    const [data, setData] = useState();
 
     const {categoriaid} = useParams();
 
     useEffect(() => {
-        const getData = new Promise(resolve => {
-            setTimeout(() => {
-                resolve(productoslista);
-            }, 1000)
-        });
-        if(categoriaid) {
-            getData.then(res => setData(res.filter(productoslista => productoslista.categoria === categoriaid)));
+        const db = getFirestore();
+        const itemCollection = collection(db, 'item');
+
+        if(categoriaid){
+            const queryFilter = query(itemCollection, where('categoria', '==', categoriaid))
+            getDocs(queryFilter).then(res => setData(res.docs.map(product => ({id: product.id, ...product.data()}))) );
         } else {
-            getData.then(res => setData(res));
-        } 
-    }, [categoriaid])
-  
-    const onAdd = (count) => {
-        console.log(`La compra de ${count} fue exitosa`);
-    }
+            getDocs(itemCollection).then(res => setData(res.docs.map(product => ({id: product.id, ...product.data()}))) );
+        }
+        }, [categoriaid])
 
     return (
         <div className="itemlist__container">
@@ -37,15 +28,15 @@ const Itemlistcontainer = () => {
                 { data && data.map((producto, index) =>{
                     const newKey = `${producto}-${index}`
                     return (
-                        <Link to={`/item/${producto.itemid}`} key={newKey} className="itemlist__itemcontainer">
+                        <Link to={`/item/${producto.id}`} key={newKey} className="itemlist__itemcontainer">
                             <img src={producto.img} alt="" />
                             <div className='itemlist__detalles'>
                                 <p className="itemlist__items">{producto.name}</p>
-                                <p className="itemlist__items">{producto.precio}</p>
+                                <p className="itemlist__itemsPrecio">${producto.precio}</p>
                             </div>
                         </Link>
                     )  
-                })
+                })                           
                 } 
             </div>      
         </div>
